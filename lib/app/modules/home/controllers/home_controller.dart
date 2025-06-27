@@ -20,7 +20,16 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _musicRepository.getPopularSongs();
+    loadPopularSongs();
+  }
+
+  Future<void> loadPopularSongs() async {
+    try {
+      final songs = await _musicRepository.getPopularSongs();
+      popularSongs.assignAll(songs);
+    } catch (e) {
+      print('Error loading popular songs: $e');
+    }
   }
 
   void onSearchChanged(String value) {

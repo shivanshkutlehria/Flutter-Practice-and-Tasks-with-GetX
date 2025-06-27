@@ -1,4 +1,3 @@
-
 import 'package:aoo_ui_using_getx/app/modules/home/widgets/music_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,23 +45,44 @@ class PopularSongsSection extends GetView<HomeController> {
         SizedBox(
           height: 20,
         ),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.8,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15),
-          itemCount: controller.popularSongs.length,
-          itemBuilder: (context, index) {
-            return MusicCard(
-              song: controller.popularSongs[index],
-              onTap: (){},
+        Obx(() {
+          print('Popular songs count: ${controller.popularSongs.length}');
+          if (controller.popularSongs.isEmpty) {
+            return Container(
+              height: 200,
+              child: Center(
+                child: Text(
+                  'Loading songs...',
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             );
-          },
-        )
+          }
+          return Container(
+            height: 500,
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15),
+              itemCount: controller.popularSongs.length,
+              itemBuilder: (context, index) {
+                print('Building music card for index: $index');
+                return MusicCard(
+                  song: controller.popularSongs[index],
+                  onTap: () {},
+                );
+              },
+            ),
+          );
+        })
       ],
     );
   }

@@ -23,8 +23,8 @@ class MusicCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             child: Image.asset(
               song.image,
-              width: 120,
-              height: 120,
+              width: 170,
+              height: 170,
               fit: BoxFit.cover,
             ),
           ),

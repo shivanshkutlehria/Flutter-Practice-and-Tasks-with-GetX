@@ -13,65 +13,77 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-          child: Column(
+          child: Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
                   children: [
-                    Text(
-                      'Hello',
-                      style: GoogleFonts.inter(
-                          color: Colors.grey[400], fontSize: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hello',
+                          style: GoogleFonts.inter(
+                              color: Colors.grey[400], fontSize: 16),
+                        ),
+                        Text(
+                          controller.currentUser.value.name,
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
                     ),
-                    Text(
-                      controller.currentUser.value.name,
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Spacer(),
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.orange,
+                      backgroundImage: AssetImage('lib/app/assets/Avatar.jpg'),
                     )
                   ],
                 ),
-                Spacer(),
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.orange,
-                  child: Text(
-                    'JJ',
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: SearchBarr(),
+              ),
+              SizedBox(
+                height: 36,
+              ),
+              Expanded(
+                  child: SingleChildScrollView(
+                
+                child: Column(
+                  children: [
+                    PremiumBanner(),
+                    SizedBox(
+                      height: 30,
                     ),
-                  ),
-                )
-              ],
+                    PopularSongsSection(),
+                  ],
+                ),
+              ))
+            ],
+          ),
+          // Bottom navigation bar as overlay
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: BottomNav(
+              currentindex: 0,
             ),
           ),
-          SizedBox(height: 15,),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 20),
-          child: SearchBarr(),
-          ),
-          SizedBox(height: 36,),
-
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  PremiumBanner(),
-                  SizedBox(height: 30,),
-                  PopularSongsSection(),
-                ],
-              ),
-            )
-          )
         ],
       )),
-      bottomNavigationBar: BottomNav(currentindex: 0,),
     );
   }
 }
