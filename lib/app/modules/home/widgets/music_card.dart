@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/SongModel.dart';
+import '../../../data/models/SongModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MusicCard extends StatelessWidget {
 
-  final Song song;
+  final SongModel song;
   final VoidCallback? onTap;
 
   const MusicCard({
